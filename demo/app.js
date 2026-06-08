@@ -13,8 +13,11 @@
 			charCounterCount: false,
 			toolbarInline: true,
 			events: {
-				'froalaEditor.initialized': function() {
-					console.log('initialized');
+        'contentChanged':function(e, editor) {
+          console.log('content changed',$scope.titleOptions.froalaEditor.html.get());
+        },
+				'initialized': function(editor) {
+					console.log('initialized', this);
 				}
 			}
 		};
@@ -22,13 +25,13 @@
 		$scope.initialize = function(initControls) {
 			$scope.initControls = initControls;
 			$scope.deleteAll = function() {
-				initControls.getEditor()('html.set', '');
+				initControls.getEditor().html.set('34434');
 			};
 		};
 
 		$scope.myTitle = '<span style="font-family: Verdana,Geneva,sans-serif; font-size: 30px;">My Document\'s Title</span><span style="font-size: 18px;"></span></span>';
 		$scope.sample2Text = '';
-		$scope.sample3Text = '';
+		$scope.sample3Text = 'Check out the <a href="https://www.froala.com/wysiwyg-editor">Froala Editor</a>';
 
 		$scope.imgModel = {src: 'image.jpg'};
 

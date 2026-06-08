@@ -1,4 +1,9 @@
-# angular-froala
+# AngularJS 1 Froala WYSIWYG HTML Editor
+
+[![npm](https://img.shields.io/npm/v/angular-froala.svg)](https://www.npmjs.com/package/angular-froala)
+[![npm](https://img.shields.io/npm/dm/angular-froala.svg)](https://www.npmjs.com/package/angular-froala)
+[![npm](https://img.shields.io/npm/l/angular-froala.svg)](https://www.npmjs.com/package/angular-froala)
+
 > For AngularJS 2 bindings see https://github.com/froala/angular2-froala-wysiwyg.
 
 ## Version 2
@@ -9,19 +14,31 @@ This repository contains bindings for the latest version of the Froala Editor (v
 
 1. Clone this repo or download the zip.
 
-2. Run `bower install` or Download the editor from [https://www.froala.com/wysiwyg-editor/](https://www.froala.com/wysiwyg-editor/) and jQuery
+2. Run `bower install` or Download the editor from [https://www.froala.com/wysiwyg-editor/](https://www.froala.com/wysiwyg-editor/)
 
-3. Load Froala WYSIWYG editor (and all desired plugins), jQuery and the angular-froala files into your project.  
-	- src/angular-froala.js
+3. Load Froala WYSIWYG editor (and all desired plugins) and the angular-froala files into your project.  
+ - src/angular-froala.js
 
- ***NB***: You must ensure jQuery is included *before* angular, otherwise Angular will use it's own jqLite which doesn't provide the necessary functions.
- 
+## Update editor
+
+With npm:
+
+```bash
+npm update froala-editor
+```
+
+With bower:
+
+```bash
+bower install froala-wysiwyg-editor
+```
+
 ## Usage
 
 1. Add the `froala` dependency to your Angular project. example:
-	* `angular.module('myApp', ['froala'])`
+ * `angular.module('myApp', ['froala'])`
 2. Create a textarea with the froala directive in your view and give it a model, where `myHtml` is a variable on `$scope`.
-	* `<textarea froala ng-model="myHtml"></textarea> `
+ * `<textarea froala ng-model="myHtml"></textarea> `
 
 ### Options
 
@@ -58,12 +75,12 @@ You can pass any existing Froala option. Consult the [Froala documentation](http
 #### Directive Specific Option
 The *angular-froala* directive exposes the following additional option:
 
- * **immediateAngularModelUpdate**: (default: false) This option synchronizes the angular model as soon as a key is released in the editor. Note that it may affect
+* **immediateAngularModelUpdate**: (default: false) This option synchronizes the angular model as soon as a key is released in the editor. Note that it may affect
   performances.
-  
+
 ### Methods
 
-To use the methods available, access the editor instance from your froalaOptions object `$scope.options.froalaEditor(method)` and use it as described in the [method docs](http://froala.com/wysiwyg-editor/docs/methods). example:
+To use the methods available, access the editor instance from your froalaOptions object `$scope.options.froalaEditor.methodName()` and use it as described in the [method docs](http://froala.com/wysiwyg-editor/docs/methods). example:
 
 ```javascript
 function myCtrl($scope){
@@ -71,9 +88,9 @@ function myCtrl($scope){
 	$scope.froalaOptions = {
 		toolbarButtons : ["bold", "italic", "underline", "|", "align", "formatOL", "formatUL"],
 		events: {
-			'froalaEditor.initialized': function () {
+			'initialized': function () {
 				// Use the methods like this.
-				$scope.froalaOptions.froalaEditor('selection.get');
+				$scope.froalaOptions.froalaEditor.selection.get();
 			}
 		}
 	}
@@ -82,7 +99,7 @@ function myCtrl($scope){
 ### Events
 
  Events can be passed in with the options, with a key events and object where the key is the event name and the value is the callback function.
- 
+
 #### Attribute
 _app.js_
 
@@ -90,7 +107,7 @@ _app.js_
 $scope.froalaOptions = {
 	placeholder: "Edit Me",
 	events : {
-		'froalaEditor.focus' : function(e, editor) {/* ... */}
+		initialized: function() {/* ... */}
 	}
 }
 ```
@@ -123,7 +140,7 @@ As the button text is modified by the editor, the **innerHTML** attribute from b
 
 #### Specific option for special tags
 
- * **angularIgnoreAttrs**: (default: null) This option is an array of attributes that you want to ignore when the editor updates the ng-model:
+* **angularIgnoreAttrs**: (default: null) This option is an array of attributes that you want to ignore when the editor updates the ng-model:
 
  ```javascript
 $scope.inputOptions = {
